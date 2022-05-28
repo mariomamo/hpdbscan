@@ -72,10 +72,10 @@ int main(int argc, char** argv) {
     if (arguments.count("help") > 0) {
         # ifdef WITH_MPI
         if (rank == 0) {
-            std::cout << parser.help() << std::endl;
+            // std::cout << parser.help() << std::endl;
         }
         # else
-        std::cout << parser.help() << std::endl;
+        // std::cout << parser.help() << std::endl;
         #endif
         goto finalize;
     }
@@ -131,6 +131,7 @@ int main(int argc, char** argv) {
     }
 
 finalize:
+    log("============== EXECUTION TERMINATED ==============\n\n");
     #ifdef WITH_MPI
     MPI_Finalize();
     #endif
