@@ -112,9 +112,10 @@ scp hpdbscan 172.31.30.7:/home/pcpc/hpdbscan/hpdbscan
 
 # Copia i dataset dal pc alla macchina
 ```bash
-scp -i hpc datasets/bremen_small.h5 ubuntu@34.241.195.219:bremen_small.h5
-scp -i hpc datasets/iris.h5 ubuntu@34.241.195.219:iris.h5
-scp -i hpc datasets/twitter_small.h5 ubuntu@34.241.195.219:twitter_small.h5
+scp -i terraform/hpc datasets/bremen_small.h5 ubuntu@54.154.80.166:bremen_small.h5
+scp -i terraform/hpc datasets/iris.h5 ubuntu@54.154.80.166:iris.h5
+scp -i terraform/hpc datasets/twitter_small.h5 ubuntu@54.154.80.166:twitter_small.h5
+https://b2share.eudat.eu/api/files/189c8eaf-d596-462b-8a07-93b5922c4a9f/bremen.h5.h5
 ```
 
 # Sposta i file in /home/pcpc/hpdbscan/
@@ -152,12 +153,24 @@ scp twitter_small.h5 172.31.30.7:/home/pcpc/hpdbscan/datasets/twitter_small.h5
 
 # Eseguire il programma
 ```bash
-mpirun -np 16 --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen.h5 /usr/include/hdf5
-mpirun -np 16 --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen_small.h5 /usr/include/hdf5
+mpirun -np 32 --use-hwthread-cpus --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen.h5 /usr/include/hdf5
+mpirun --map-by node -np 8 --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen.h5 /usr/include/hdf5
 mpirun --allow-run-as-root -np 1 ./hpdbscan --input-dataset DBSCAN -i datasets/bremen_small.h5 /usr/include/hdf5
+```
+
+# Copiare il file su l'utente non pcpc
+```bash
+sudo cp o.txt /home/o.txt
+```
+
+# Scaricarlo sulla macchine locale
+```bash
+scp -i hpc ubuntu@54.217.177.146:/home/o.txt o.txt
 ```
 
 # Test
 On the MASTER node login in pcpc sudo login pcpc, password: root
 Local login ssh localhost
 Remote login on a worker node ssh IP
+
+assuming you are using Open MPI, you can mpirun --use-hwthread-cpus in order to have 1 hyperthread = 1slot (e.g. 32 slots on your system)
