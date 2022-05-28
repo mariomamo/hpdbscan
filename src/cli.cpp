@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
     }
 
 finalize:
-    log("============== EXECUTION TERMINATED ==============\n\n");
+    log("\n============== EXECUTION TERMINATED ==============\n\n");
     #ifdef WITH_MPI
     MPI_Finalize();
     #endif
