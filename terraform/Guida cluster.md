@@ -90,6 +90,9 @@ in ```include/cxxopts.h```
 
 # Compilare con cmake
 ```bash
+Git pull
+Git pull origin main
+
 cmake . && make
 ```
 
@@ -150,6 +153,7 @@ scp twitter_small.h5 172.31.30.7:/home/pcpc/hpdbscan/datasets/twitter_small.h5
 # Eseguire il programma
 ```bash
 mpirun -np 16 --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen.h5 /usr/include/hdf5
+mpirun -np 16 --hostfile hosts hpdbscan/hpdbscan --input-dataset DBSCAN -i hpdbscan/datasets/bremen_small.h5 /usr/include/hdf5
 mpirun --allow-run-as-root -np 1 ./hpdbscan --input-dataset DBSCAN -i datasets/bremen_small.h5 /usr/include/hdf5
 ```
 
