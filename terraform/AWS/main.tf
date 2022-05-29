@@ -47,7 +47,7 @@ resource "aws_security_group" "ec2_security_group" {
 
 resource "aws_instance" "hpc_ec2" {
   ami             = "ami-00c90dbdc12232b58"
-  instance_type   = "t3.xlarge"
+  instance_type   = "t3.2xlarge"
   count           = 4
   key_name        = "hpc_ec2_key"
   security_groups = ["${aws_security_group.ec2_security_group.name}"]
