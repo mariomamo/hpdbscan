@@ -43,3 +43,5 @@ terraform/.terraform
 terraform/.terraform.lock.hcl
 
 datasets/
+
+.data.h5
